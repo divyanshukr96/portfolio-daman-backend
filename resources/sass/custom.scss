@@ -1,0 +1,81 @@
+
+.gallery {
+  & .item {
+    cursor: pointer;
+    &:hover {
+      div {
+        display: block;
+      }
+    }
+  }
+
+  & a {
+    width: inherit;
+    & img{
+      max-width: 100%;
+    }
+    &:hover {
+      -webkit-box-shadow: 0 8px 17px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(0, 0, 0, .19);
+      box-shadow: 0 8px 17px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(0, 0, 0, .19);
+      opacity: .7;
+      + div {
+        display: block;
+      }
+    }
+    + div {
+      display: none;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      &:hover {
+        display: block;
+      }
+      & i {
+        cursor: pointer;
+        color: whitesmoke;
+        font-size: 18px;
+        vertical-align: sub;
+      }
+    }
+  }
+}
+
+.trash {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  -webkit-border-radius: 10px 0 10px 0;
+  -moz-border-radius: 10px 0 10px 0;
+  border-radius: 10px 0 10px 0;
+  & i {
+    cursor: pointer;
+    font-size: 18px;
+    vertical-align: sub;
+  }
+}
+
+.layout0023 {
+  height: 0;
+  padding-bottom: 45%;
+
+  background-position-x: initial;
+  background-position-y: initial;
+  background-size: 100% 100%;
+  background-repeat-x: no-repeat;
+  background-repeat-y: no-repeat;
+  background-attachment: initial;
+  background-origin: initial;
+  background-clip: initial;
+  background-color: initial;
+
+  & div {
+    position: absolute;
+    bottom: 0;
+    margin-right: 1rem;
+    background-color: rgba(0, 0, 0, .3);
+  }
+
+}
+
+
