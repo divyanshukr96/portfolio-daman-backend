@@ -38,7 +38,7 @@ class LayoutController extends Controller
             'carousel' => GalleryResource::collection(Photo::all()->where('carousel', true)),
             'description' => new LayoutResource(Description::first()),
             'cover' => new LayoutResource(Layout::where('cover', true)->first()),
-            'layout' => LayoutResource::collection(Layout::all()),
+            'layout' => LayoutResource::collection(Layout::where('cover', '!=',true)->get()),
             'gallery' => GalleryResource::collection(Photo::Paginate(9))
         ]);
     }

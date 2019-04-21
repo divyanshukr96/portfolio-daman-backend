@@ -38,7 +38,7 @@ class ContactController extends Controller
     public function store(ContactUsValidate $request)
     {
         $data = Contact::create($request->all());
-        return response()->json($data,400);
+        return response()->json($data,201);
     }
 
     /**

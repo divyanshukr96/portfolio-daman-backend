@@ -29,7 +29,7 @@ class LayoutResource extends JsonResource
         }
         return [
             'about' => $this->about,
-            'carousel' => $this->cover,
+            'cover' => $this->cover,
             'description' => $this->when(!is_null($this->description), $this->description),
             'created_at' => $this->created_at,
             // 'photo' => $this->when(!is_null($this->photo), $this->photo->name),

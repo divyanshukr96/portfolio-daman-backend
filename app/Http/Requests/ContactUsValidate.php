@@ -26,7 +26,7 @@ class ContactUsValidate extends APIRequest
             'name' => "required|regex:/^[.\'\-a-zA-Z ]+$/|max:100",
             'email' => 'required|email|max:100',
             'where' => 'required|string',
-            'event_date' => 'required|date|before:today',
+            'event_date' => 'required|date|after:today',
             'how_find' => 'nullable|string',
             'about' => 'required|string',
         ];

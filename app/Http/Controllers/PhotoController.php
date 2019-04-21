@@ -47,7 +47,7 @@ class PhotoController extends Controller
      */
     public function getResize()
     {
-        $galleries = Photo::where('size', '>', '5')->paginate(30);
+        $galleries = Photo::where('size', '>', '2')->paginate(30);
         return view('gallery.resize', ['galleries' => $galleries]);
     }
 
