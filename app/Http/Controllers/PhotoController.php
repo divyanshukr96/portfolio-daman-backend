@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Http\Resources\GalleryResource;
 use App\Photo;
 use App\Traits\ResizeImage;
@@ -26,7 +27,23 @@ class PhotoController extends Controller
     public function index()
     {
         $galleries = Photo::paginate(30);
-        return view('gallery.home', ['galleries' => $galleries]);
+        $categories = Category::all();
+        $selected = 'all';
+        return view('gallery.home', compact('galleries', 'categories', 'selected'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param $category
+     * @return Response
+     */
+    public function byCategory($category)
+    {
+        $galleries = Category::where('value', $category)->first()->images()->paginate(30);
+        $categories = Category::all();
+        $selected = $category;
+        return view('gallery.home', compact('galleries', 'categories', 'selected'));
     }
 
     /**
@@ -90,14 +107,16 @@ class PhotoController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'photo.*' => 'required|image'
+            'photo.*' => 'required|image',
+            'category' => 'required|exists:categories,value'
         ], [], [
             'photo.*' => 'photo'
         ]);
         if ($request->hasFile('photo')) {
+            $category = Category::where('value', $request->get('category'))->first();
             $photos = $request->file('photo');
             foreach ($photos as $photo) {
-                Photo::create(['name' => $photo]);
+                $category->images()->attach(Photo::create(['name' => $photo]));
             }
         }
         return redirect()->back();

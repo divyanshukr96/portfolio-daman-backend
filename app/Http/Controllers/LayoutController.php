@@ -21,10 +21,9 @@ class LayoutController extends Controller
      */
     public function index()
     {
-        return view('home_layout.home', [
-            'layout' => Layout::all()->where('cover', false),
-            'cover' => Layout::all()->where('cover', true)->first(),
-        ]);
+        $layout = Layout::all()->where('cover', false);
+        $cover = Layout::all()->where('cover', true)->first();
+        return view('home_layout.home', compact('layout', 'cover'));
     }
 
     /**
@@ -38,7 +37,7 @@ class LayoutController extends Controller
             'carousel' => GalleryResource::collection(Photo::all()->where('carousel', true)),
             'description' => new LayoutResource(Description::first()),
             'cover' => new LayoutResource(Layout::where('cover', true)->first()),
-            'layout' => LayoutResource::collection(Layout::where('cover', '!=',true)->get()),
+            'layout' => LayoutResource::collection(Layout::where('cover', null)->orWhere('cover', false)->get()),
             'gallery' => GalleryResource::collection(Photo::Paginate(9))
         ]);
     }
@@ -67,7 +66,7 @@ class LayoutController extends Controller
         $data['about'] = $request->get('about');
         $data['cover'] = $request->get('cover');
         if ($request->hasFile('photo')) {
-            $this->validate($request,[
+            $this->validate($request, [
                 'photo' => 'required|image'
             ]);
             $photo = Photo::create(['name' => $request->file('photo')]);
@@ -145,7 +144,7 @@ class LayoutController extends Controller
     {
         $layout->update($request->all());
         if ($request->hasFile('photo')) {
-            $this->validate($request,[
+            $this->validate($request, [
                 'photo' => 'required|image'
             ]);
             $layout->photo()->associate(Photo::create([

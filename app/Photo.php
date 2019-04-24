@@ -7,6 +7,7 @@ use App\Traits\StoreImage;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -59,6 +60,14 @@ class Photo extends Model
     public function description()
     {
         return $this->hasOne('App\Description');
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function Category()
+    {
+        return $this->belongsToMany(Category::class);
     }
 
     /**

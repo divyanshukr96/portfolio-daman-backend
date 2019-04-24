@@ -42,6 +42,7 @@ Route::group(['middleware' => 'auth', 'prefix' => '/admin'], function () {
     Route::patch('/optimize/{photo}', 'PhotoController@optimize')->name('optimize');
 
     Route::get('/gallery', 'PhotoController@index')->name('gallery');
+    Route::get('/gallery/category/{category}', 'PhotoController@byCategory')->name('gallery.category');
     Route::post('/gallery', 'PhotoController@store')->name('gallery.store');
     Route::get('/gallery/trash', 'PhotoController@trash')->name('gallery.trash');
     Route::patch('/gallery/trash/{photo}', 'PhotoController@restore')->name('gallery.restore');
