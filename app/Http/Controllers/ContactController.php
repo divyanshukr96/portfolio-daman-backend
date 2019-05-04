@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Contact;
 use App\Http\Requests\ContactUsValidate;
+use App\Mail\ContactMail;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
 {
@@ -38,6 +40,7 @@ class ContactController extends Controller
     public function store(ContactUsValidate $request)
     {
         $data = Contact::create($request->all());
+        Mail::send(new ContactMail($data));
         return response()->json($data,201);
     }
 

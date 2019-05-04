@@ -84,7 +84,21 @@ class PhotoController extends Controller
      */
     public function gallery()
     {
-        return GalleryResource::collection(Photo::all())->pluck('name');
+        $gallery = [];
+        $gallery['all'] = [
+            'name' => 'All',
+            'images' => Photo::all()->pluck('name')
+        ];
+        $categories = Category::all();
+        foreach ($categories as $category){
+            $gallery[$category->value] = [
+                'name' => $category->name,
+                'images' => $category->images()->get()->pluck('name')
+            ];
+        }
+
+        return response()->json($gallery);
+//        return GalleryResource::collection(Photo::all())->pluck('name');
     }
 
     /**
